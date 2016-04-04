@@ -10,7 +10,7 @@ apt-get update
 export DEBIAN_FRONTEND=noninteractive
 apt-get -y install cloud-archive-utils git-buildpackage debhelper sbuild
 
-#Required to buil neutron
+#Required to build neutron
 apt-get -y install dh-systemd openstack-pkg-tools python-setuptools python-pbr
 
 # This script is done with this documentation
