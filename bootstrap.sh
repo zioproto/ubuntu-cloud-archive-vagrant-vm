@@ -75,6 +75,9 @@ SKIP_PROPOSED="1"
 
 EOF
 
+# Copy git configuration
+cp /vagrant/gitconfig /home/vagrant/.gitconfig
+
 #
 #sg sbuild
 #sbuild-update --keygen
