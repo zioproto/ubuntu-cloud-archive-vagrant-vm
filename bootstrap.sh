@@ -10,6 +10,9 @@ apt-get update
 export DEBIAN_FRONTEND=noninteractive
 apt-get -y install cloud-archive-utils git-buildpackage debhelper sbuild
 
+#Required for entropy to generate gpg keys
+apt-get install rng-tools
+
 #Required to build neutron
 apt-get -y install dh-systemd openstack-pkg-tools python-setuptools python-pbr
 
