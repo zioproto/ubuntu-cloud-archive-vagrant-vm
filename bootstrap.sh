@@ -7,7 +7,7 @@ echo doing the root tasks...
 add-apt-repository -s ppa:ubuntu-cloud-archive/tools
 add-apt-repository -s cloud-archive:kilo
 apt-get update
-# This fails because there is a ncurses question asked
+export DEBIAN_FRONTEND=noninteractive
 apt-get -y install cloud-archive-utils git-buildpackage debhelper sbuild
 
 #Required to buil neutron
