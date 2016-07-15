@@ -1,0 +1,17 @@
+[user]
+	name = Saverio Proto
+	email = saverio.proto@switch.ch
+[core]
+	editor = vim
+
+[color]
+	diff = auto
+	branch = auto
+	status = auto
+[alias]
+	superlog = log --graph --all --decorate --pretty=oneline
+	superlogextended = log --graph --all --decorate
+	stat = diff -C --stat=1000,1000
+    oldest-ancestor = !zsh -c 'diff -u <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1' -
+[gitreview]
+	username = zioproto
