@@ -19,14 +19,14 @@ apt-get -y install dh-systemd openstack-pkg-tools python-setuptools python-pbr
 # This script is done with this documentation
 # https://wiki.ubuntu.com/SimpleSbuild
 
-sudo adduser vagrant sbuild
-echo "/home/vagrant/ubuntu/scratch  /scratch          none  rw,bind  0  0" | tee -a  /etc/schroot/sbuild/fstab
-sudo -u vagrant -i $0  # script calling itself as the vagrant user
+sudo adduser ubuntu sbuild
+echo "/home/ubuntu/ubuntu/scratch  /scratch          none  rw,bind  0  0" | tee -a  /etc/schroot/sbuild/fstab
+sudo -u ubuntu -i $0  # script calling itself as the ubuntu user
 ;;
 *)
-echo then: running as vagrant user
-echo doing the vagrant user tasks
-cat <<- EOF >  /home/vagrant/.sbuildrc
+echo then: running as ubuntu user
+echo doing the ubuntu user tasks
+cat <<- EOF >  /home/ubuntu/.sbuildrc
 
 # Mail address where logs are sent to (mandatory, no default!)
 \$mailto = 'zioproto@gmail.com';
@@ -53,17 +53,17 @@ cat <<- EOF >  /home/vagrant/.sbuildrc
 # \$purge_build_deps = 'never';
 
 # Directory for writing build logs to
-\$log_dir="/home/vagrant/ubuntu/logs";
+\$log_dir="/home/ubuntu/ubuntu/logs";
 
 # don't remove this, Perl needs it:
 1;
 
 EOF
 
-mkdir -p /home/vagrant/ubuntu/scratch
-mkdir -p /home/vagrant/ubuntu/logs
+mkdir -p /home/ubuntu/ubuntu/scratch
+mkdir -p /home/ubuntu/ubuntu/logs
 
-cat <<- EOF >  /home/vagrant/.mk-sbuild.rc
+cat <<- EOF >  /home/ubuntu/.mk-sbuild.rc
 
 SCHROOT_CONF_SUFFIX="source-root-users=root,sbuild,admin
 source-root-groups=root,sbuild,admin
@@ -76,7 +76,7 @@ SKIP_PROPOSED="1"
 EOF
 
 # Copy git configuration
-cp /vagrant/gitconfig /home/vagrant/.gitconfig
+cp /vagrant/gitconfig /home/ubuntu/.gitconfig
 
 #
 #sg sbuild
