@@ -28,7 +28,28 @@ Now for example let's rebuild the `cinder` package
 
 ```
 apt-get source --download-only cinder-volume
-gbp import-dsc cinder_2015.1.3-0ubuntu1.dsc
+```
+
+This will download a few files.
+If you need to download a older version that is not supported by Xenial, for example because you are building packages for Trusty, you can browse to http://ubuntu-cloud.archive.canonical.com/ubuntu/pool/main/ and download the necessary files by hand.
+
+Now you can import the dsc file to create the source folder.
+
+```
+gbp import-dsc cinder_2015.1.4-0ubuntu1.dsc
+```
+
+Some packages will fail this step, if they have additional tarballs.
+For example Horizon will fail with:
+
+```
+gbp:error: Cannot import package with additional tarballs but found 'horizon_2015.1.4.orig-xstatic.tar.gz'
+```
+
+In this case use `dpkg-source` to import the dsc file
+
+```
+dpkg-source -x horizon_2015.1.4-0ubuntu2.dsc
 ```
 
 After these two command you will have a `cinder` folder that is a git
@@ -85,6 +106,11 @@ Now commit your changes to the changelog
 ```
 git add debian/changelog
 git commit --amend
+```
+
+In case of Horizon, you imported the package without creating a git repository. You can update the Changelog with the command:
+```
+dch -i
 ```
 
 ## Build the package
