@@ -5,7 +5,6 @@ case $(id -u) in
 echo first: running as root
 echo doing the root tasks...
 add-apt-repository -s ppa:ubuntu-cloud-archive/tools
-add-apt-repository -s cloud-archive:kilo
 apt-get update
 export DEBIAN_FRONTEND=noninteractive
 apt-get -y install cloud-archive-utils git-buildpackage debhelper sbuild
