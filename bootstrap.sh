@@ -67,8 +67,6 @@ cat <<- EOF >  /home/ubuntu/.mk-sbuild.rc
 SCHROOT_CONF_SUFFIX="source-root-users=root,sbuild,admin
 source-root-groups=root,sbuild,admin
 preserve-environment=true"
-SKIP_UPDATES="1"
-SKIP_PROPOSED="1"
 # if you have e.g. apt-cacher-ng around
 # DEBOOTSTRAP_PROXY=http://127.0.0.1:3142/
 
