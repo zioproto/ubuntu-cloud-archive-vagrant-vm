@@ -12,6 +12,14 @@ automates what you find in the ubuntu documentation at https://wiki.ubuntu.com/S
 
 After cloning the repository start the ubuntu VM with `vagrant up`.
 
+### Warning:
+This `ubuntu/xenial64` is broken ! At the first boot provision will fail.
+ Do a `vagrant ssh` and install the following:
+`sudo apt-get --no-install-recommends install virtualbox-guest-utils`
+then get out and reboot with `vagrant halt && vagrant up`
+Hopefully this will be fixed soon upstream:
+https://bugs.launchpad.net/cloud-images/+bug/1565985
+
 ## Login into the VM and prepare the build env
 
 Login into the VM with `vagrant ssh`
