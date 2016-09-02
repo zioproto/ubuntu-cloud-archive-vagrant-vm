@@ -1,6 +1,6 @@
 # Build a Ubuntu Cloud Archive package
 
-This is a small guide tested on Ubuntu Trusty 14.04 to rebuild
+This is a small guide tested on Ubuntu Xenial 16.04 to rebuild
 packages from the Ubuntu Cloud Archive adding your own patches.
 
 This is probably not the right way to build Ubuntu packages, but
