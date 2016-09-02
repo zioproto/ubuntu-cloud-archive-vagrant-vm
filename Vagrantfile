@@ -5,6 +5,8 @@
 # Do a vagrant ssh and install the following:
 # sudo apt-get --no-install-recommends install virtualbox-guest-utils
 # then get out and reboot with vagrant halt && vagrant up
+# Or you can just install this plugin:
+# vagrant plugin install vagrant-vbguest
 
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/xenial64"
