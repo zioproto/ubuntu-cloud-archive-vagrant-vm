@@ -3,17 +3,20 @@
 This is a small guide tested on Ubuntu Xenial 16.04 to rebuild
 packages from the Ubuntu Cloud Archive adding your own patches.
 
-This is probably not the right way to build Ubuntu packages, but
-it worked for me :)
+This is how I work to have patches merged upstream in Ubuntu
 
 ## Setup a VM with the necessary tools
 
-Most of the steps are done by the Vagrant `bootstrap.sh` script.
+Most of the steps are done by the Vagrant `bootstrap.sh` script. The scripts
+automates what you find in the ubuntu documentation at https://wiki.ubuntu.com/SimpleSbuild
+
 After cloning the repository start the ubuntu VM with `vagrant up`.
 
 ## Login into the VM and prepare the build env
 
 Login into the VM with `vagrant ssh`
+
+In this example we build packages for Ubuntu Trusty
 
 At the first login prepare your env for trusty
 ```
@@ -26,38 +29,24 @@ mk-sbuild trusty
 
 Now for example let's rebuild the `cinder` package
 
-```
-apt-get source --download-only cinder-volume
-```
-
-This will download a few files.
-If you need to download a older version that is not supported by Xenial, for example because you are building packages for Trusty, you can browse to http://ubuntu-cloud.archive.canonical.com/ubuntu/pool/main/ and download the necessary files by hand.
-
-Now you can import the dsc file to create the source folder.
+The official ubuntu documentation is here:
+https://wiki.ubuntu.com/OpenStack/CorePackages
 
 ```
-gbp import-dsc cinder_2015.1.4-0ubuntu1.dsc
+debcheckout --git-track='*' cinder
 ```
 
-Some packages will fail this step, if they have additional tarballs.
-For example Horizon will fail with:
-
-```
-gbp:error: Cannot import package with additional tarballs but found 'horizon_2015.1.4.orig-xstatic.tar.gz'
-```
-
-In this case use `dpkg-source` to import the dsc file
-
-```
-dpkg-source -x horizon_2015.1.4-0ubuntu2.dsc
-```
-
-After these two command you will have a `cinder` folder that is a git
+You will now have a `cinder` folder that is a git
 repository. An upstream branch contains the software version from upstream,
 and the master branch contains the debian version.
+There are also stable branches like `stable/liberty` and `stable/mitaka`
+In our use case we run openstack liberty so we will
+
+```
+git checkout stable/liberty
+```
 
 ## Apply your own patch
-
 
 New debian/ubuntu packages are built to hold the patches in a special folder:
 
@@ -72,53 +61,52 @@ the VM (see Vagrant docs for details)
 
 Add the namefile of your patch to `debian/patches/series`
 
-Commit your changes
+Add your changes to the git index
 ```
 git add debian/patches/*
-git commit -m "Commit msg that makes sense"
 ```
+
+Do not commit yet, we first update the debian changelog
 
 ## Update the debian changelog
 
 Run this command to update the debian changelog
 
-`gbp dch`
+`dch -i`
 
-Eventually edit `debian/changelog` so that your package will have a proper
-version name. In my cinder example the changelog looks like:
-```
-cinder (1:2015.1.3-0ubuntu1+switch0) trusty-kilo; urgency=medium
-
-  * RBD: Make snapshot_delete more robust
-
- -- Saverio Proto <saverio.proto@switch.ch>  Thu, 31 Mar 2016 20:18:06 +0000
-
-cinder (1:2015.1.3-0ubuntu1) trusty-kilo; urgency=medium
-
-  * New upstream stable release (LP: #1559215).
-
- -- James Page <james.page@ubuntu.com>  Sat, 19 Mar 2016 08:54:31 +0000
+Edit the changelog to look something like this:
 
 ```
+cinder (2:7.0.2-0ubuntu2) UNRELEASED; urgency=medium
 
-Now commit your changes to the changelog
+  * RBD: Delete snapshots if missing in the Ceph backend (LP: #1415905):
+    - d/p/cinder-306610.patch: Apply patch from review 306610.
+
+ -- Saverio Proto <saverio.proto@switch.ch> Mon, 29 Aug 2016 20:42:39 +0000
+```
+
+Now commit your changes into git, the `debcommit` tool will give to the git commit a description looking at the debian changelog
 
 ```
 git add debian/changelog
-git commit --amend
-```
-
-In case of Horizon, you imported the package without creating a git repository. You can update the Changelog with the command:
-```
-dch -i
+debcommit
 ```
 
 ## Build the package
 
+First of all we need to use `gbp buildpackage` to create the dsc file.
+
+```
+gbp buildpackage -S -us -uc
+```
+
+You will find the .dsc file in the `../build-area` folder
+
+
 Start the build
 
 ```
-sbuild-kilo -d trusty-amd64
+sbuild-liberty -d trusty-amd64 -A ../build-area/cinder_7.0.2-0ubuntu1.dsc
 ```
 
 If the build is successful you will find the new deb packages in the parent folder
