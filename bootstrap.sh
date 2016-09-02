@@ -15,6 +15,9 @@ apt-get install rng-tools
 #Required to build neutron
 apt-get -y install dh-systemd openstack-pkg-tools python-setuptools python-pbr
 
+#Required to build horizon
+apt-get -y install python-pip
+
 # This script is done with this documentation
 # https://wiki.ubuntu.com/SimpleSbuild
 
