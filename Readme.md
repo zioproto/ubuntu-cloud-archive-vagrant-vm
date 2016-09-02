@@ -102,6 +102,8 @@ gbp buildpackage -S -us -uc
 
 You will find the .dsc file in the `../build-area` folder
 
+If you are building `horizon`, please check the special workaround to build `horizon` at https://wiki.ubuntu.com/OpenStack/CorePackages because this package is a bit special)
+
 
 Start the build
 
