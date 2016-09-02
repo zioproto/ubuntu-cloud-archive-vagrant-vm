@@ -13,5 +13,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
      vb.cpus = "2"
      vb.memory = "2048"
+  # Remember to `ssh-add` before `vagrant ssh`
+  config.ssh.forward_agent = true
   end
 end
