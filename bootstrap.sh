@@ -38,7 +38,7 @@ cat <<- EOF >  /home/ubuntu/.sbuildrc
 \$maintainer_name='Saverio Proto <zioproto@gmail.com>';
 
 # Default distribution to build.
-\$distribution = "trusty";
+\$distribution = "xenial";
 # Build arch-all by default.
 \$build_arch_all = 1;
 
@@ -81,7 +81,7 @@ cp /vagrant/gitconfig /home/ubuntu/.gitconfig
 #
 #sg sbuild
 #sbuild-update --keygen
-#mk-sbuild trusty
+#mk-sbuild xenial
 
 ;;
 esac

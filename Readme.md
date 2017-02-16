@@ -33,13 +33,13 @@ Install the vagrant-vbguest plugin that will take care of fixing the virtualbox 
 
 Login into the VM with `vagrant ssh`
 
-In this example we build packages for Ubuntu Trusty
+In this example we build packages for Ubuntu Xenial
 
-At the first login prepare your env for trusty
+At the first login prepare your env for xenial
 ```
 sg sbuild
 sbuild-update --keygen
-mk-sbuild trusty
+mk-sbuild xenial
 ```
 
 ## Download upstream sources
@@ -56,11 +56,11 @@ debcheckout --git-track='*' cinder
 You will now have a `cinder` folder that is a git
 repository. An upstream branch contains the software version from upstream,
 and the master branch contains the debian version.
-There are also stable branches like `stable/liberty` and `stable/mitaka`
+There are also stable branches like `stable/mitaka` and `stable/newton`
 In our use case we run openstack liberty so we will
 
 ```
-git checkout stable/liberty
+git checkout stable/newton
 ```
 
 ## Apply your own patch
