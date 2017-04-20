@@ -131,3 +131,7 @@ sbuild-liberty -d trusty-amd64 -A ../build-area/cinder_7.0.2-0ubuntu1.dsc
 If the build is successful you will find the new deb packages in the parent folder
 
 `ls ../`
+
+## Refresh a package after a new upstream release
+
+`gbp import-orig --upstream-version=13.1.3 --debian-branch=stable/mitaka --merge --pristine-tar ../nova_13.1.3.orig.tar.gz`
