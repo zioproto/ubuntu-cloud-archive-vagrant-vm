@@ -134,4 +134,14 @@ If the build is successful you will find the new deb packages in the parent fold
 
 ## Refresh a package after a new upstream release
 
-`gbp import-orig --upstream-version=13.1.3 --debian-branch=stable/mitaka --merge --pristine-tar ../nova_13.1.3.orig.tar.gz`
+In this example we see how we upgrade the package when the Nova team releases the nova version 14.0.5
+
+```
+debcheckout --git-track='*' nova
+wget https://tarballs.openstack.org/nova/nova-14.0.5.tar.gz
+cd nova
+git checkout stable/newton
+gbp import-orig --upstream-version=14.0.5 --debian-branch=stable/newton --merge --pristine-tar ../nova-14.0.5.tar.gz
+```
+You will have the upstream and tarballs branches
+
