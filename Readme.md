@@ -125,7 +125,7 @@ If you are building `horizon`, please check the special workaround to build `hor
 Start the build
 
 ```
-sbuild-liberty -d trusty-amd64 -A ../build-area/cinder_7.0.2-0ubuntu1.dsc
+sbuild-newton -d xenial-amd64 -A ../build-area/<filename>.dsc
 ```
 
 If the build is successful you will find the new deb packages in the parent folder
