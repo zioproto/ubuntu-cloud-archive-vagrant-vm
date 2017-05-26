@@ -119,10 +119,26 @@ gbp buildpackage -S -us -uc
 
 You will find the .dsc file in the `../build-area` folder
 
-If you are building `horizon`, please check the special workaround to build `horizon` at https://wiki.ubuntu.com/OpenStack/CorePackages because this package is a bit special)
+### Special case of building Horizon
 
+If you are building `horizon`, please check the special workaround to build `horizon` at https://wiki.ubuntu.com/OpenStack/CorePackages because this package is a bit special).
+If you are building a new release to generate the `horizon_<version>.orig-xstatic.tar.gz` you can use the script `./debian/rules refresh-xstatic` as described in the Readme file in the debian folder.
 
-Start the build
+If you are rebuilding on top of a stable release, dont generate the xstatic file, you have to download it. This file is not in the pristine-tar branch.
+You will not have the .dsc file in the  `../build-area` folder but in the `../` folder. Also you will need to download the orig tarballs.
+Because you have two tarballs files you will have to use the `debuild` tool in the following way:
+```
+cd /home/ubuntu
+wget https://launchpad.net/ubuntu/+archive/primary/+files/horizon_10.0.3.orig.tar.gz
+wget https://launchpad.net/ubuntu/+archive/primary/+files/horizon_10.0.3.orig-xstatic.tar.gz
+cd horizon
+debuild -S -sa -us -uc
+sbuild-newton -d xenial-amd64 -A ../horizon_10.0.3-0ubuntu2.dsc
+```
+
+## Start the build
+
+Once you have your dsc file you can start the build
 
 ```
 sbuild-newton -d xenial-amd64 -A ../build-area/<filename>.dsc
