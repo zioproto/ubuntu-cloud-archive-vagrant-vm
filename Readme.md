@@ -136,6 +136,16 @@ debuild -S -sa -us -uc
 sbuild-newton -d xenial-amd64 -A ../horizon_10.0.3-0ubuntu2.dsc
 ```
 
+To download the tarballs you have different options.
+If you have the `deb-src` in `/etc/apt/source.list.d/<cloudarchive>` you will be
+able to download the tarball using `apt source horizon`.
+
+There also other `pull` commands available:
+```
+pull-lp-source horizon yakkety
+pull-uca-source horizon newton
+```
+
 ## Start the build
 
 Once you have your dsc file you can start the build
