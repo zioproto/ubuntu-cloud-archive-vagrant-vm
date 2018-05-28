@@ -7,7 +7,7 @@ echo doing the root tasks...
 add-apt-repository -s ppa:ubuntu-cloud-archive/tools
 apt-get update
 export DEBIAN_FRONTEND=noninteractive
-apt-get -y install cloud-archive-utils git-buildpackage debhelper sbuild pristine-tar
+apt-get -y install cloud-archive-utils git-buildpackage debhelper sbuild xdelta3
 
 #Required for entropy to generate gpg keys
 apt-get install rng-tools
@@ -17,6 +17,13 @@ apt-get -y install dh-systemd openstack-pkg-tools python-setuptools python-pbr
 
 #Required to build horizon
 apt-get -y install python-pip
+
+# Backport tools from Bionic because Xenial tools are too old
+cd /root
+wget https://launchpad.net/ubuntu/+archive/primary/+files/pristine-tar_1.44_amd64.deb
+wget https://launchpad.net/ubuntu/+archive/primary/+files/tar_1.29b-2_amd64.deb
+apt-get install /root/pristine-tar_1.44_amd64.deb
+apt-get install /root/tar_1.29b-2_amd64.deb
 
 # This script is done with this documentation
 # https://wiki.ubuntu.com/SimpleSbuild
