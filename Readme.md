@@ -29,6 +29,18 @@ Install the vagrant-vbguest plugin that will take care of fixing the virtualbox 
 
 `vagrant plugin install vagrant-vbguest`
 
+## Optional: instead of Vagrant run the VM on Openstack
+
+Review the file `buildserver.yaml` to customize glance image, flavor and keypair. Now you can start the buildvm on openstack.
+
+    source ~/openstack-rc.sh
+
+    ansible-playbook buildserver.yaml
+
+All the provisioning of the VM is done with cloud init. You can check the status if it with:
+
+    openstack console log show ubuntu-build-packages
+
 ## Login into the VM and prepare the build env
 
 Login into the VM with `vagrant ssh`
