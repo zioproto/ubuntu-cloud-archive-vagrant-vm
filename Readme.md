@@ -57,7 +57,7 @@ You will now have a `cinder` folder that is a git
 repository. An upstream branch contains the software version from upstream,
 and the master branch contains the debian version.
 There are also stable branches like `stable/mitaka` and `stable/newton`
-In our use case we run openstack liberty so we will
+In our use case we run openstack newton so we will
 
 ```
 git checkout stable/newton
