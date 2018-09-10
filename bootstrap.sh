@@ -7,7 +7,7 @@ echo doing the root tasks...
 add-apt-repository -s ppa:ubuntu-cloud-archive/tools
 apt-get update
 export DEBIAN_FRONTEND=noninteractive
-apt-get -y install cloud-archive-utils git-buildpackage debhelper sbuild xdelta3
+apt-get -y install cloud-archive-utils git-buildpackage debhelper sbuild xdelta3 debootstrap
 
 #Required for entropy to generate gpg keys
 apt-get install rng-tools
